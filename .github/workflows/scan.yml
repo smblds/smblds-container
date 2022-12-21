@@ -1,0 +1,23 @@
+name: Run Trivy vulnerability scanner
+
+on:
+  schedule:
+    - cron: '42 7 * * *'  # UTC
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Trivy vulnerability scanner for latest image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: smblds/smblds:latest
+          format: sarif
+          output: trivy-results.sarif
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-results.sarif
