@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  main:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -50,3 +50,14 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.label-schema.build-date=${{ steps.meta.outputs.created }}
             org.label-schema.vcs-ref=${{ github.sha }}
+  check:
+    needs: build
+    runs-on: ubuntu-latest
+    container: smblds/smblds:latest
+    steps:
+      - name: Run ENTRYPOINT explicitly
+        run: /entrypoint.sh /bin/sh
+      - name: Wait for started Samba services
+        run: for cnt in $(seq 1 9); do netstat -lnpt | grep :389 && netstat -lnpt | grep :636 && break || sleep 1; done
+      - name: Run ldapsearch against Samba
+        run: HOME='/root' ldapsearch -v > /dev/null
