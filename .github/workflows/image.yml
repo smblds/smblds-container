@@ -60,4 +60,4 @@ jobs:
       - name: Wait for started Samba services
         run: for cnt in $(seq 1 9); do netstat -lnpt | grep :389 && netstat -lnpt | grep :636 && break || sleep 1; done
       - name: Run ldapsearch against Samba
-        run: HOME='/root' ldapsearch -v > /dev/null
+        run: ldapsearch -v > /dev/null

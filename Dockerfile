@@ -49,9 +49,12 @@ RUN set -x && \
   rm -f ${python_sitepackages}/samba/ntacls.py.orig && \
   for bin in add compare delete exop modify modrdn passwd search vc whoami; do \
     wrapper="/usr/local/bin/ldap${bin}" && \
-    echo -e '#!/bin/sh\n\nexec '"/usr/bin/ldap${bin}"' -x -y /root/.ldappass "$@"' > ${wrapper} && \
+    echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec '"/usr/bin/ldap${bin}"' -x' \
+      '-y /root/.ldappass "$@"' > ${wrapper} && \
     chmod 755 ${wrapper}; \
-  done
+  done && \
+  echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
+  chmod 755 /usr/local/bin/ldapvi
 
 ENV TZ=UTC
 EXPOSE 22 389 389/udp 636 3268 3269
