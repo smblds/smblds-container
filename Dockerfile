@@ -57,6 +57,7 @@ RUN set -x && \
   chmod 755 /usr/local/bin/ldapvi
 
 ENV TZ=UTC
+VOLUME ["/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", "/var/log/samba/"]
 EXPOSE 22 389 389/udp 636 3268 3269
 
 ENTRYPOINT ["/sbin/tini", "-g", "--", "/entrypoint.sh"]
