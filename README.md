@@ -1,5 +1,9 @@
 # Container image for smblds
 
+[![Build OCI image](https://github.com/smblds/smblds-container/actions/workflows/image.yml/badge.svg)](https://github.com/smblds/smblds-container/actions/workflows/image.yml)
+[![Docker pulls](https://img.shields.io/docker/pulls/smblds/smblds.svg)](https://hub.docker.com/r/smblds/smblds)
+[![OCI image size](https://img.shields.io/docker/image-size/smblds/smblds/latest.svg)](https://hub.docker.com/r/smblds/smblds/tags)
+
 ## About
 
 Source files and build instructions for an [OCI](https://opencontainers.org/) image (compatible with e.g. Docker or Podman) to mimic [Active Directory Lightweight Directory Services](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/adam/what-is-active-directory-lightweight-directory-services) (AD LDS) using [Samba](https://www.samba.org/) more or less. AD LDS is an independent mode of Active Directory, minus infrastructure features (such as Kerberos KDC, Group Policies or DNS SRV records), that provides directory services for applications.
