@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2022  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2023  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@ set -e
 REALM="${REALM:-SAMDOM.EXAMPLE.COM}"
 DOMAIN="${DOMAIN:-SAMDOM}"
 ADMINPASS="${ADMINPASS:-Passw0rd}"
-INSECURE_LDAP="$(echo "${INSECURE_LDAP}" | tr 'A-Z' 'a-z')"
-INSECURE_PASSWORDSETTINGS="$(echo "${INSECURE_PASSWORDSETTINGS}" | tr 'A-Z' 'a-z')"
+INSECURE_LDAP="${INSECURE_LDAP:-false}"
+INSECURE_PASSWORDSETTINGS="${INSECURE_PASSWORDSETTINGS:-false}"
 SERVER_SERVICES="${SERVER_SERVICES:-ldap cldap}"
 BASEDN="$(echo "${REALM}" | tr 'A-Z' 'a-z')"
 BASEDN="DC=${BASEDN//./,DC=}"
@@ -105,6 +105,18 @@ if [ -n "${SSH_AUTHORIZED_KEYS}" ]; then
   chmod 600 /root/.ssh/authorized_keys
   pidof dropbear > /dev/null || dropbear -R
 fi
+
+# Run optional entrypoint scripts
+for entrypoint in /entrypoint.d/*; do
+  if [ -e "${entrypoint}" ]; then
+    if [ -x "${entrypoint}" ]; then
+      echo "Launching ${entrypoint}"
+      "${entrypoint}"
+    else
+      echo "Ignoring ${entrypoint}, not executable"
+    fi
+  fi
+done
 
 # Start Samba (either as main or forking process)
 if [ $# -eq 0 ]; then

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2023  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,10 +54,13 @@ RUN set -x && \
     chmod 755 ${wrapper}; \
   done && \
   echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
-  chmod 755 /usr/local/bin/ldapvi
+  chmod 755 /usr/local/bin/ldapvi && \
+  mkdir /entrypoint.d/ && \
+  chmod 750 /entrypoint.d/
 
 ENV TZ=UTC
-VOLUME ["/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", "/var/log/samba/"]
+VOLUME ["/entrypoint.d/", "/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", \
+        "/var/log/samba/"]
 EXPOSE 22 389 389/udp 636 3268 3269
 
 ENTRYPOINT ["/sbin/tini", "-g", "--", "/entrypoint.sh"]
