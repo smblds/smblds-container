@@ -58,7 +58,7 @@ Thus the OCI images are effectively built within the GitHub infrastructure (usin
 
 To avoid maintaining one `Dockerfile` per CPU architecture, the single one is automatically multi-arched using `sed -e 's/^\(FROM\) \(alpine:.*\)/ARG ARCH=\n\1 ${ARCH}\2/' -i Dockerfile` as part of the workflow itself. While this might feel hackish, it practically works very well.
 
-Commits to Git trigger the workflow and lead to updated OCI images being pushed (except for GitHub pull requests) to public container image registries. Additionally, a cron-like option in the workflow leads to a weekly updated OCI image.
+Commits to Git trigger the workflow and lead to updated OCI images being pushed (except for GitHub pull requests) to public container image registries. Additionally, a cron-like option in the workflow leads to a daily updated OCI image.
 
 ## License
 
