@@ -46,6 +46,9 @@ if [ ! -f /etc/samba/smb.conf ]; then
 
   # Disable NetBIOS and printing support
   sed -e '/^\[global\]/a\\tdisable netbios = yes\n\tload printers = no' -i /etc/samba/smb.conf
+
+  # Disable default DNS forwarding
+  sed -e '/\tdns forwarder =/d' -i /etc/samba/smb.conf
 fi
 
 # Disable mandatory LDAP encryption (if requested)
