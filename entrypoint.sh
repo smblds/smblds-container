@@ -25,7 +25,7 @@ ADMINPASS="${ADMINPASS:-Passw0rd}"
 INSECURE_LDAP="${INSECURE_LDAP:-false}"
 INSECURE_PASSWORDSETTINGS="${INSECURE_PASSWORDSETTINGS:-false}"
 SERVER_SERVICES="${SERVER_SERVICES:-ldap cldap}"
-BASEDN="$(echo "${REALM}" | tr 'A-Z' 'a-z')"
+BASEDN="$(echo "${REALM}" | tr '[:upper:]' '[:lower:]')"
 BASEDN="DC=${BASEDN//./,DC=}"
 
 # Catch container interruption signals to remove hint file for health script
@@ -37,24 +37,28 @@ trap cleanup INT TERM
 # Provision default Samba AD non-interactively
 if [ ! -f /etc/samba/smb.conf ]; then
   samba-tool domain provision \
-    --realm="$(echo "${REALM}" | tr 'a-z' 'A-Z')" \
-    --domain="$(echo "${DOMAIN}" | tr 'a-z' 'A-Z')" \
+    --realm="$(echo "${REALM}" | tr '[:lower:]' '[:upper:]')" \
+    --domain="$(echo "${DOMAIN}" | tr '[:lower:]' '[:upper:]')" \
     --adminpass="${ADMINPASS}"
 
   # Disable all unused server services
-  sed -e '/^\[global\]/a\\tserver services = '"${SERVER_SERVICES}" -i /etc/samba/smb.conf
+  sed -e '/^\[global\]/a\\tserver services = '"${SERVER_SERVICES}" \
+      -i /etc/samba/smb.conf
 
   # Disable NetBIOS and printing support
-  sed -e '/^\[global\]/a\\tdisable netbios = yes\n\tload printers = no' -i /etc/samba/smb.conf
+  sed -e '/^\[global\]/a\\tdisable netbios = yes\n\tload printers = no' \
+      -i /etc/samba/smb.conf
 
   # Disable default DNS forwarding
-  sed -e '/\tdns forwarder =/d' -i /etc/samba/smb.conf
+  sed -e '/\tdns forwarder =/d' \
+      -i /etc/samba/smb.conf
 fi
 
 # Disable mandatory LDAP encryption (if requested)
 case "${INSECURE_LDAP}" in
   1|y*|Y*|t*|T*)
-    sed -e '/^\[global\]/a\\tldap server require strong auth = no' -i /etc/samba/smb.conf
+    sed -e '/^\[global\]/a\\tldap server require strong auth = no' \
+        -i /etc/samba/smb.conf
     ;;
 esac
 
@@ -123,9 +127,13 @@ done
 
 # Start Samba (either as main or forking process)
 if [ $# -eq 0 ]; then
-  pidof samba > /dev/null || { touch /tmp/samba.daemon-expected && exec samba --interactive; }
+  pidof samba > /dev/null || {
+    touch /tmp/samba.daemon-expected && exec samba --interactive
+  }
 else
-  pidof samba > /dev/null || { touch /tmp/samba.daemon-expected && samba; }
+  pidof samba > /dev/null || {
+    touch /tmp/samba.daemon-expected && samba
+  }
 fi
 
 # Default to run whatever the user wanted, e.g. "sh"
