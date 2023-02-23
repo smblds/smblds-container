@@ -55,8 +55,8 @@ RUN set -x && \
   done && \
   echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
   chmod 755 /usr/local/bin/ldapvi && \
-  mkdir /entrypoint.d/ && \
-  chmod 750 /entrypoint.d/
+  mkdir /entrypoint.d/ /etc/dropbear/ && \
+  chmod 750 /entrypoint.d/ /etc/dropbear/
 
 ENV TZ=UTC
 VOLUME ["/entrypoint.d/", "/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", \
