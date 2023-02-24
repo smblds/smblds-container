@@ -39,7 +39,7 @@ RUN set -x && \
 RUN set -x && \
   apk --no-cache upgrade && \
   apk --no-cache add samba-dc dropbear ldapvi openldap-clients tini tzdata && \
-  rm -f /etc/samba/smb.conf && \
+  rm -f /etc/motd /etc/samba/smb.conf && \
   python_sitepackages="$(python -c 'import site; print(site.getsitepackages()[0])')" && \
   cp -pf ${python_sitepackages}/samba/ntacls.py ${python_sitepackages}/samba/ntacls.py.orig && \
   sed -e '/smbd.set_nt_acl(/,/)/d' -i ${python_sitepackages}/samba/ntacls.py && \
