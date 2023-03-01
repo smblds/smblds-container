@@ -59,8 +59,8 @@ RUN set -x && \
   chmod 750 /entrypoint.d/ /etc/dropbear/
 
 ENV TZ=UTC
-VOLUME ["/entrypoint.d/", "/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", \
-        "/var/log/samba/"]
+VOLUME ["/entrypoint.d/", "/etc/dropbear/", "/etc/samba/", "/root/", "/var/cache/samba/", \
+        "/var/lib/samba/", "/var/log/samba/"]
 EXPOSE 22 389 389/udp 636 3268 3269
 
 ENTRYPOINT ["/sbin/tini", "-g", "--", "/entrypoint.sh"]
