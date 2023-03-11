@@ -3,6 +3,7 @@
 [![Build OCI image](https://github.com/smblds/smblds-container/actions/workflows/image.yml/badge.svg)](https://github.com/smblds/smblds-container/actions/workflows/image.yml)
 [![Docker pulls](https://img.shields.io/docker/pulls/smblds/smblds.svg)](https://hub.docker.com/r/smblds/smblds)
 [![OCI image size](https://img.shields.io/docker/image-size/smblds/smblds/latest.svg)](https://hub.docker.com/r/smblds/smblds/tags)
+[![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/smblds/smblds-container)](https://www.codefactor.io/repository/github/smblds/smblds-container)
 
 ## About
 
