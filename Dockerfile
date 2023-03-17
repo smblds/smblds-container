@@ -41,17 +41,17 @@ RUN set -x && \
   apk --no-cache add samba-dc dropbear ldapvi openldap-clients tini tzdata && \
   rm -f /etc/motd /etc/samba/smb.conf && \
   python_sitepackages="$(python -c 'import site; print(site.getsitepackages()[0])')" && \
-  cp -pf ${python_sitepackages}/samba/ntacls.py ${python_sitepackages}/samba/ntacls.py.orig && \
-  sed -e '/smbd.set_nt_acl(/,/)/d' -i ${python_sitepackages}/samba/ntacls.py && \
-  sed -e '/^\s\{4\}else:$/{N;s/^\s\{4\}else:\n$//}' -i ${python_sitepackages}/samba/ntacls.py && \
-  diff -u ${python_sitepackages}/samba/ntacls.py.orig ${python_sitepackages}/samba/ntacls.py || \
-  python ${python_sitepackages}/samba/ntacls.py && \
-  rm -f ${python_sitepackages}/samba/ntacls.py.orig && \
+  cp -pf "${python_sitepackages}/samba/ntacls.py" "${python_sitepackages}/samba/ntacls.py.orig" && \
+  sed -e '/smbd.set_nt_acl(/,/)/d' -i "${python_sitepackages}/samba/ntacls.py" && \
+  sed -e '/^\s\{4\}else:$/{N;s/^\s\{4\}else:\n$//}' -i "${python_sitepackages}/samba/ntacls.py" && \
+  diff -u "${python_sitepackages}/samba/ntacls.py.orig" "${python_sitepackages}/samba/ntacls.py" || \
+  python "${python_sitepackages}/samba/ntacls.py" && \
+  rm -f "${python_sitepackages}/samba/ntacls.py.orig" && \
   for bin in add compare delete exop modify modrdn passwd search vc whoami; do \
     wrapper="/usr/local/bin/ldap${bin}" && \
     echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec '"/usr/bin/ldap${bin}"' -x' \
-      '-y /root/.ldappass "$@"' > ${wrapper} && \
-    chmod 755 ${wrapper}; \
+      '-y /root/.ldappass "$@"' > "${wrapper}" && \
+    chmod 755 "${wrapper}"; \
   done && \
   echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
   chmod 755 /usr/local/bin/ldapvi && \
