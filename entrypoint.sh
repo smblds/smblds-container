@@ -82,13 +82,13 @@ VERSION 3
 BASE ${BASEDN}
 BINDDN CN=Administrator,CN=Users,${BASEDN}
 EOF
-  chmod 600 /root/.ldaprc
+  chmod 0600 /root/.ldaprc
 fi
 
 # Write password of Samba 'Administrator' user
 if [ ! -f /root/.ldappass ]; then
   echo -n "${ADMINPASS}" > /root/.ldappass
-  chmod 600 /root/.ldappass
+  chmod 0600 /root/.ldappass
 fi
 
 # Write default ldapvi configuration
@@ -101,15 +101,15 @@ password: ${ADMINPASS}
 base: ${BASEDN}
 tls: never
 EOF
-  chmod 600 /root/.ldapvirc
+  chmod 0600 /root/.ldapvirc
 fi
 
 # Write authorized_keys, then start Dropbear SSH
 if [ -n "${SSH_AUTHORIZED_KEYS}" ]; then
   mkdir -p /root/.ssh/
-  chmod 700 /root/.ssh/
+  chmod 0700 /root/.ssh/
   echo -e "${SSH_AUTHORIZED_KEYS}" >> /root/.ssh/authorized_keys
-  chmod 600 /root/.ssh/authorized_keys
+  chmod 0600 /root/.ssh/authorized_keys
   pidof dropbear > /dev/null || dropbear -R
 fi
 

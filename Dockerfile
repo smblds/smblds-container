@@ -34,7 +34,7 @@ LABEL maintainer="Robert Scheck <https://github.com/smblds/smblds-container>" \
 
 COPY entrypoint.sh healthcheck.sh /
 RUN set -x && \
-  chmod +x /entrypoint.sh /healthcheck.sh
+  chmod 0755 /entrypoint.sh /healthcheck.sh
 
 RUN set -x && \
   apk --no-cache upgrade && \
@@ -51,12 +51,12 @@ RUN set -x && \
     wrapper="/usr/local/bin/ldap${bin}" && \
     echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec '"/usr/bin/ldap${bin}"' -x' \
       '-y /root/.ldappass "$@"' > "${wrapper}" && \
-    chmod 755 "${wrapper}"; \
+    chmod 0755 "${wrapper}"; \
   done && \
   echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
-  chmod 755 /usr/local/bin/ldapvi && \
+  chmod 0755 /usr/local/bin/ldapvi && \
   mkdir /entrypoint.d/ /etc/dropbear/ && \
-  chmod 750 /entrypoint.d/ /etc/dropbear/
+  chmod 0750 /entrypoint.d/ /etc/dropbear/
 
 ENV TZ=UTC
 VOLUME ["/entrypoint.d/", "/etc/dropbear/", "/etc/samba/", "/root/", "/var/cache/samba/", \
