@@ -31,6 +31,18 @@ podman run --name smblds \
            --detach quay.io/smblds/smblds:latest
 ```
 
+## Volumes
+
+  * `/entrypoint.d` - Optional directory for customization scripts, any executable file is run before the start of the Samba daemon.
+  * `/etc/dropbear` - Optional directory containing the SSH host keys for the Dropbear SSH server.
+  * `/etc/samba` - Directory where, during the first run, the entrypoint script saves the default configuration file for the Samba daemon.
+  * `/root` - Directory where, during the first run, the entrypoint script saves the configuration files for `ldapadd`, `ldapvi`, `ldapmodify`, `ldapsearch` etc. as well as optional SSH authorized keys.
+  * `/var/cache/samba` - Directory where the Samba daemon writes its internal semi-persistent/run-time data into.
+  * `/var/lib/samba` - Directory where the Samba daemon writes its internal `*.tdb` database files and the LDAP data into.
+  * `/var/log/samba` - Directory where, if optionally configured, the Samba daemon writes its log files into.
+
+While the typical developer and CI/CD use cases usually don't require persistent storage, `/entrypoint.d` might be handy for customization scripts that contain e.g. `samba-tool user create`.
+
 ## Environment Variables
 
   * `TZ` - Time zone according to IANA's time zone database, e.g. `Europe/Amsterdam`, defaults to `UTC`.
