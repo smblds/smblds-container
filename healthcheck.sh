@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2022  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2023  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,11 +16,8 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-set -e
-[ -n "${DEBUG}" ] && set -x
+set -e ${DEBUG:+-x}
 
-if [ -f /tmp/samba.daemon-expected ]; then
-  pidof samba > /dev/null
-fi
+[ -f /tmp/samba.daemon-expected ] && pidof samba > /dev/null
 
 exit 0
