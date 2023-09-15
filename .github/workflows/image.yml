@@ -49,8 +49,6 @@ jobs:
           registry: quay.io
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_TOKEN }}
-      - name: Multi-arch Dockerfile
-        run: sed -e 's/^\(FROM\) \(alpine:.*\)/ARG ARCH=\n\1 ${ARCH}\2/' -i Dockerfile
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
@@ -65,6 +63,7 @@ jobs:
             org.opencontainers.image.revision=${{ github.sha }}
             org.label-schema.build-date=${{ steps.meta.outputs.created }}
             org.label-schema.vcs-ref=${{ github.sha }}
+          provenance: false
   check:
     needs: build
     runs-on: ubuntu-latest
