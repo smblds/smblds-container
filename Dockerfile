@@ -56,8 +56,8 @@ RUN set -x && \
     chmod 0755 "/usr/local/bin/${bin}"; \
   done && \
   chmod 0755 /usr/local/bin/ldapvi && \
-  mkdir /entrypoint.d/ /etc/dropbear/ && \
-  chmod 0750 /entrypoint.d/ /etc/dropbear/
+  mkdir /entrypoint.d/ && \
+  chmod 0750 /entrypoint.d/
 
 ENV TZ=UTC
 VOLUME ["/entrypoint.d/", "/etc/dropbear/", "/etc/samba/", "/root/", "/var/cache/samba/", "/var/lib/samba/", "/var/log/samba/"]
