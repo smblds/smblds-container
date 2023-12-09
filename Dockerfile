@@ -51,11 +51,11 @@ RUN set -x && \
     chmod 0755 "/usr/local/bin/${bin}"; \
   done && \
   echo -e '#!/bin/sh\n\nHOME='"'/root'"' exec /usr/bin/ldapvi "$@"' > /usr/local/bin/ldapvi && \
+  chmod 0755 /usr/local/bin/ldapvi && \
   for bin in ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch; do \
     echo -e '#!/bin/sh\n\nLDB_MODULES_PATH='"'/usr/lib/ldb/modules/ldb:/usr/lib/samba/ldb'"' exec '"/usr/bin/${bin}"' "$@"' > "/usr/local/bin/${bin}" && \
     chmod 0755 "/usr/local/bin/${bin}"; \
   done && \
-  chmod 0755 /usr/local/bin/ldapvi && \
   mkdir /entrypoint.d/ && \
   chmod 0750 /entrypoint.d/
 
