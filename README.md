@@ -60,8 +60,8 @@ While the typical developer and CI/CD use cases usually don't require persistent
   * `389` - TCP port for LDAP access (STARTTLS or plaintext if `INSECURE_LDAP` is enabled).
   * `389/udp` - UDP port for optional [CLDAP](https://wiki.wireshark.org/MS-CLDAP.md) (Connection-less LDAP) access, usually not needed.
   * `636` - TCP port for LDAPS access (mandatory SSL/TLS encryption).
-  * `3268` - TCP port for optional LDAP access to [Global Catalog](https://ldapwiki.com/wiki/Global%20Catalog) (STARTTLS or plaintext if `INSECURE_LDAP` is enabled).
-  * `3269` - TCP port for optional LDAPS access to [Global Catalog](https://ldapwiki.com/wiki/Global%20Catalog) (mandatory SSL/TLS encryption).
+  * `3268` - TCP port for optional LDAP access to [Global Catalog](https://ldapwiki.com/wiki/Wiki.jsp?page=Global%20Catalog) (STARTTLS or plaintext if `INSECURE_LDAP` is enabled).
+  * `3269` - TCP port for optional LDAPS access to [Global Catalog](https://ldapwiki.com/wiki/Wiki.jsp?page=Global%20Catalog) (mandatory SSL/TLS encryption).
 
 ## Pipeline / Workflow
 
