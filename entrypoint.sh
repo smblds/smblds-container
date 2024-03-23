@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2022-2023  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2024  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 set -e ${DEBUG:+-x}
 
 REALM="${REALM:-SAMDOM.EXAMPLE.COM}"
-DOMAIN="${DOMAIN:-SAMDOM}"
+DOMAIN="$(echo "${DOMAIN:-SAMDOM}" | sed -e 's/[^A-Z0-9]//gi')"
 ADMINPASS="${ADMINPASS:-Passw0rd}"
 INSECURE_LDAP="${INSECURE_LDAP:-false}"
 INSECURE_PASSWORDSETTINGS="${INSECURE_PASSWORDSETTINGS:-false}"
@@ -37,7 +37,7 @@ trap cleanup INT TERM
 if [ ! -f /etc/samba/smb.conf ]; then
   samba-tool domain provision \
     --realm="$(echo "${REALM}" | tr '[:lower:]' '[:upper:]')" \
-    --domain="$(echo "${DOMAIN}" | tr '[:lower:]' '[:upper:]')" \
+    --domain="$(echo "${DOMAIN:0:15}" | tr '[:lower:]' '[:upper:]')" \
     --adminpass="${ADMINPASS}"
 
   # Disable all unused server services

@@ -17,7 +17,7 @@ jobs:
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         env:
-          SHELLCHECK_OPTS: -e SC3037 -e SC3060
+          SHELLCHECK_OPTS: -e SC3037 -e SC3057 -e SC3060
       - name: Max. 79 characters per line
         run: |
           wc -L *.sh | sort -nr
