@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022-2023  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2024  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ LABEL maintainer="Robert Scheck <https://github.com/smblds/smblds-container>" \
       org.opencontainers.image.url="https://www.samba.org/" \
       org.opencontainers.image.documentation="https://wiki.samba.org/index.php/User_Documentation" \
       org.opencontainers.image.source="https://gitlab.com/samba-team/samba" \
-      org.opencontainers.image.licenses="GPL-3.0+" \
+      org.opencontainers.image.licenses="GPL-3.0-or-later" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.name="smblds" \
       org.label-schema.description="Samba (Active Directory) Lightweight Directory Services" \
