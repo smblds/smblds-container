@@ -48,9 +48,9 @@ While the typical developer and CI/CD use cases usually don't require persistent
   * `TZ` - Time zone according to IANA's time zone database, e.g. `Europe/Amsterdam`, defaults to `UTC`.
   * `REALM` - Kerberos realm, the uppercase version of the AD DNS domain, defaults to `SAMDOM.EXAMPLE.COM`.
   * `DOMAIN` - NetBIOS domain name (workgroup), single word up to 15 characters without a dot, defaults to `SAMDOM`.
-  * `ADMINPASS` - Domain administrator password, needs to match [complexity requirements](https://technet.microsoft.com/en-us/library/cc786468%28v=ws.10%29.aspx), defaults to `Passw0rd`.
+  * `ADMINPASS` - Domain administrator password, needs to match [complexity requirements](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)), defaults to `Passw0rd`.
   * `INSECURE_LDAP` - Set to `true` to allow simple LDAP binds over unencrypted connections, defaults to `false`.
-  * `INSECURE_PASSWORDSETTINGS` - Set to `true` to disable `ADMINPASS` [complexity requirements](https://technet.microsoft.com/en-us/library/cc786468%28v=ws.10%29.aspx), defaults to `false`.
+  * `INSECURE_PASSWORDSETTINGS` - Set to `true` to disable `ADMINPASS` [complexity requirements](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc786468(v=ws.10)), defaults to `false`.
   * `SSH_AUTHORIZED_KEYS` - SSH public key(s) to enable SSH access to the container, e.g. for complex scenarios.
   * `SERVER_SERVICES` - Override option for the [services](https://wiki.samba.org/index.php/FAQ#Why_Do_I_Not_Have_a_server_services_parameter_in_My_smb.conf_File.3F) that the Samba daemon will run, defaults to `ldap cldap`.
 
@@ -58,7 +58,7 @@ While the typical developer and CI/CD use cases usually don't require persistent
 
   * `22` - TCP port for optional SSH access to the container, requires `SSH_AUTHORIZED_KEYS` to be set.
   * `389` - TCP port for LDAP access (STARTTLS or plaintext if `INSECURE_LDAP` is enabled).
-  * `389/udp` - UDP port for optional [CLDAP](https://wiki.wireshark.org/MS-CLDAP.md) (Connection-less LDAP) access, usually not needed.
+  * `389/udp` - UDP port for optional [CLDAP](https://wiki.wireshark.org/MS-CLDAP) (Connection-less LDAP) access, usually not needed.
   * `636` - TCP port for LDAPS access (mandatory SSL/TLS encryption).
   * `3268` - TCP port for optional LDAP access to [Global Catalog](https://ldapwiki.com/wiki/Wiki.jsp?page=Global%20Catalog) (STARTTLS or plaintext if `INSECURE_LDAP` is enabled).
   * `3269` - TCP port for optional LDAPS access to [Global Catalog](https://ldapwiki.com/wiki/Wiki.jsp?page=Global%20Catalog) (mandatory SSL/TLS encryption).
