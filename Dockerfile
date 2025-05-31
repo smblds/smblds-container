@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022-2024  Robert Scheck <robert@fedoraproject.org>
+# Copyright (c) 2022-2025  Robert Scheck <robert@fedoraproject.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ RUN set -x && \
 
 RUN set -x && \
   apk --no-cache upgrade && \
-  apk --no-cache add samba-dc dropbear ldapvi ldb-tools openldap-clients tini tzdata && \
+  apk --no-cache add samba-dc dropbear ldapvi ldb-tools openldap-clients py3-cryptography tini tzdata && \
   rm -f /etc/motd /etc/samba/smb.conf && \
   python_sitepackages="$(python -c 'import site; print(site.getsitepackages()[0])')" && \
   cp -pf "${python_sitepackages}/samba/ntacls.py" "${python_sitepackages}/samba/ntacls.py.orig" && \
